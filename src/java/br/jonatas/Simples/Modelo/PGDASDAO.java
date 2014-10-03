@@ -20,15 +20,14 @@ import java.util.logging.Logger;
  *
  * @author issqn
  */
-public class PGDASDAO{
+public class PGDASDAO {
 
     Connection connection;
-    
+
     public PGDASDAO() {
         connection = ConnectionFactory.getConnection();
     }
 
-    
     public void inserir(PGDAS pgdas) {
         try {
             String SQL = "INSERT INTO pgdas (pa, razao, cnpj, valorpa, valdecsemretencao, "
@@ -45,11 +44,11 @@ public class PGDASDAO{
             ps.setFloat(8, pgdas.getAliquota());
             ps.setString(9, pgdas.getData());
             ps.setString(10, pgdas.getOperacao());
-            
+
             ps.executeUpdate();
             ps.close();
             connection.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(PGDASDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,22 +60,22 @@ public class PGDASDAO{
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setInt(1, id);
             ps.executeUpdate();
-            
+
             ps.close();
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(PGDASDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public List<PGDAS> listar() {
         List<PGDAS> pg = new ArrayList<PGDAS>();
         try {
             String SQL = "SELECT * FROM pgdas";
-            PreparedStatement ps  = connection.prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 PGDAS pgd = new PGDAS();
                 pgd.setId(rs.getInt("id"));
                 pgd.setPa(rs.getString("pa"));
@@ -89,17 +88,80 @@ public class PGDASDAO{
                 pgd.setAliquota(rs.getFloat("aliquota"));
                 pgd.setData(rs.getString("data"));
                 pg.add(pgd);
-                
+
             }
-            
+
             rs.close();
             ps.close();
-            
+
             return pg;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(PGDASDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Erro ao listar PGDAS", ex.getCause());
+        }
+    }
+
+    public List<PGDAS> buscaCompetenciaCNPJPA(String pa, String cnpj) {
+        List<PGDAS> pg = new ArrayList<PGDAS>();
+        try {
+            String SQL = "";
+            PreparedStatement ps = null;
             
+            if (!pa.equals("") && cnpj.equals("")) {
+                SQL = "SELECT * FROM pgdas WHERE pa = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa);
+                //ps.setString(2, cnpj);
+            }
+            
+            if (pa.equals("") && !cnpj.equals("")) {
+                SQL = "SELECT * FROM pgdas WHERE cnpj = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, cnpj);
+                //ps.setString(2, cnpj);
+            }
+            
+            if (!pa.equals("") && !cnpj.equals("")) {
+                SQL = "SELECT * FROM pgdas WHERE pa = ? AND cnpj = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa);
+                ps.setString(2, cnpj);
+            }
+            
+            if (pa.equals("") && cnpj.equals("")) {
+                SQL = "SELECT * FROM pgdas";
+                ps = connection.prepareStatement(SQL);
+            }
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                PGDAS pgd = new PGDAS();
+                pgd.setId(rs.getInt("id"));
+                pgd.setPa(rs.getString("pa"));
+                pgd.setRazao(rs.getString("razao"));
+                pgd.setCnpj(rs.getString("cnpj"));
+                pgd.setValorpa(rs.getFloat("valorpa"));
+                pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
+                pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
+                pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
+                pgd.setAliquota(rs.getFloat("aliquota"));
+                pgd.setData(rs.getString("data"));
+                pg.add(pgd);
+
+            }
+
+            rs.close();
+            ps.close();
+
+            return pg;
+
         } catch (SQLException ex) {
             Logger.getLogger(PGDASDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao listar PGDAS", ex.getCause());
+
         }
     }
 
@@ -110,5 +172,5 @@ public class PGDASDAO{
     public void editar(PGDAS pgdas) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

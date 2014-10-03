@@ -4,9 +4,17 @@
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <servlet-class>br.jonatas.Simples.Controle.relatorioPGDASCompleto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>pgdasControleImpressao</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.pgdasControleImpressao</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <url-pattern>/relatorioPGDASCompleto/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pgdasControleImpressao</servlet-name>
+        <url-pattern>/pgdasControleImpressao</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
