@@ -6,7 +6,7 @@
 package br.jonatas.Simples.Modelo;
 
 import br.jonatas.Simples.Modelo.ConnectionFactory;
-import br.jonatas.Simples.Modelo.PGDAS;
+import br.jonatas.Simples.Bean.PGDAS;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,7 +110,7 @@ public class PGDASDAO {
             PreparedStatement ps = null;
             
             if (!pa.equals("") && cnpj.equals("")) {
-                SQL = "SELECT * FROM pgdas WHERE pa = ?";
+                SQL = "SELECT * FROM pgdas WHERE pa = ? ORDER BY RAZAO, CNPJ ASC    ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 //ps.setString(2, cnpj);
@@ -148,6 +148,7 @@ public class PGDASDAO {
                 pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
                 pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
                 pgd.setAliquota(rs.getFloat("aliquota"));
+                pgd.setOperacao(rs.getString("operacao"));
                 pgd.setData(rs.getString("data"));
                 pg.add(pgd);
 

@@ -44,7 +44,7 @@ public class relatorioPGDASCompleto extends HttpServlet {
         try {
             Connection conn = ConnectionFactory.getConnection();
             
-            byte[] bytes = JasperRunManager.runReportToPdf("//home//issqn//Copy//WebProjetoSimplesNacional//web//relatorios//webTest.jasper", null, conn);
+            byte[] bytes = JasperRunManager.runReportToPdf("WebProjetoSimplesNacional//web//relatorios//webTest.jasper", null, conn);
             response.setContentType("application/pdf");
             response.setContentLength(bytes.length);
             

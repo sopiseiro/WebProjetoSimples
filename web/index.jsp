@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<jsp:useBean id="pgdas" class="br.jonatas.Simples.Modelo.PGDAS"/>
+<jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PGDAS"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
 <body> 
@@ -158,7 +158,7 @@
                                             <th class="table-header-repeat line-left"><a href="">Devido</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Retido</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Aliquota</a></th>
-                                            <th class="table-header-options line-left"><a href="">Opções</a></th>
+                                            <th class="table-header-options line-left"><a href="">Operação</a></th>
                                         </tr>
                                         <c:forEach  items="${listaPgdas}" var="pgdas">
                                             <tr>
@@ -169,13 +169,8 @@
                                                 <td>R$ <fmt:formatNumber value="${pgdas.valdecsemretencao}" minFractionDigits="2"/></td>
                                                 <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" minFractionDigits="2"/></td>
                                                 <td><fmt:formatNumber value="${pgdas.aliquota}" minFractionDigits="2"/>%</td>
-                                                <td class="options-width">
-                                                    <a href="" title="Edit" class="icon-1 info-tooltip"></a>
-                                                    <a href="" title="Edit" class="icon-2 info-tooltip"></a>
-                                                    <a href="" title="Edit" class="icon-3 info-tooltip"></a>
-                                                    <a href="" title="Edit" class="icon-4 info-tooltip"></a>
-                                                    <a href="" title="Edit" class="icon-5 info-tooltip"></a>
-                                                </td>
+                                                <td>${pgdas.operacao}</td>
+                                                
                                             </tr>
                                         </c:forEach>
 

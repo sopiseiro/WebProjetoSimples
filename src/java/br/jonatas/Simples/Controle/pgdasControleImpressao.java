@@ -6,7 +6,7 @@
 package br.jonatas.Simples.Controle;
 
 import br.jonatas.Simples.Modelo.ConnectionFactory;
-import br.jonatas.Simples.Modelo.PGDAS;
+import br.jonatas.Simples.Bean.PGDAS;
 import br.jonatas.Simples.Modelo.PGDASDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
