@@ -36,11 +36,17 @@ public class pgdasControle extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = ConnectionFactory.getConnection();
+        
         String pa = request.getParameter("pa")==null?"":request.getParameter("pa");
         String cnpj = request.getParameter("cnpj")==null?"":request.getParameter("cnpj");
+        
         List<PGDAS> pg = new ArrayList<PGDAS>();
         PGDASDAO model = new PGDASDAO();
         pg = model.buscaCompetenciaCNPJPA(pa , cnpj);
+        
+        request.setAttribute("pa", pa);
+        request.setAttribute("cnpj", cnpj);
+        
         request.setAttribute("pgdas", pg);
         request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
         

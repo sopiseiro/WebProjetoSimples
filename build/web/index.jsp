@@ -133,12 +133,12 @@
                                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                                         <tr>
                                             <th valign="top">CNPJ:</th>
-                                            <td><input type="text" name="cnpj" class="inp-form" /></td>
+                                            <td><input type="text" value="" name="cnpj" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <th valign="top">Competencia:</th>
-                                            <td><input type="text" name="pa" class="inp-form" /></td>
+                                            <td><input type="text" name="pa" value="" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
 
