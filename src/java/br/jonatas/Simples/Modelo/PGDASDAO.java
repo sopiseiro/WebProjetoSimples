@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class PGDASDAO {
 
-    Connection connection;
+    private Connection connection;
 
     public PGDASDAO() {
         connection = ConnectionFactory.getConnection();
@@ -138,9 +138,11 @@ public class PGDASDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                String paCorreto = rs.getString("pa").substring(4 ,6);
+                       paCorreto += "/"+ rs.getString("pa").substring(0 ,4);
                 PGDAS pgd = new PGDAS();
                 pgd.setId(rs.getInt("id"));
-                pgd.setPa(rs.getString("pa"));
+                pgd.setPa(paCorreto);
                 pgd.setRazao(rs.getString("razao"));
                 pgd.setCnpj(rs.getString("cnpj"));
                 pgd.setValorpa(rs.getFloat("valorpa"));
@@ -148,7 +150,7 @@ public class PGDASDAO {
                 pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
                 pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
                 pgd.setAliquota(rs.getFloat("aliquota"));
-                pgd.setOperacao(rs.getString("operacao"));
+                pgd.setOperacao(rs.getString("operacao").equals("A")?"Apuração":"Retificação");
                 pgd.setData(rs.getString("data"));
                 pg.add(pgd);
 

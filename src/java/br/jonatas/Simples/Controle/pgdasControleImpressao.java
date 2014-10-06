@@ -40,15 +40,16 @@ public class pgdasControleImpressao extends HttpServlet {
             throws ServletException, IOException {
         try {
             Connection conn = ConnectionFactory.getConnection();
-            String pa = request.getParameter("pa")==null?"":request.getParameter("pa");
-            String cnpj = request.getParameter("cnpj")==null?"":request.getParameter("cnpj");
+            String pa = request.getParameter("pa");//.substring(3 ,7);
+                 //  pa +=  request.getParameter("pa").substring(0 ,2);
+            String cnpj = request.getParameter("cnpj").replace(".", "").replace("/", "").replace("-", "");
             List<PGDAS> pg = new ArrayList<PGDAS>();
             PGDASDAO model = new PGDASDAO();
             pg = model.buscaCompetenciaCNPJPA(pa,cnpj);
             request.setAttribute("listaPgdas", pg);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
             
-            conn.close();
+           conn.close();
             
         } catch (SQLException ex) {
             Logger.getLogger(pgdasControleImpressao.class.getName()).log(Level.SEVERE, null, ex);
