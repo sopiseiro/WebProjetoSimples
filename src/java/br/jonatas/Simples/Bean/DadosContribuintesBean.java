@@ -9,7 +9,7 @@ package br.jonatas.Simples.Bean;
  *
  * @author issqn
  */
-public class dadosContribuintes {
+public class DadosContribuintesBean {
 
     private int id;
     private String pa;
@@ -18,7 +18,7 @@ public class dadosContribuintes {
     private Float valorsemretencao;
     private Float aliquota;
 
-    public dadosContribuintes() {
+    public DadosContribuintesBean() {
         this.id = 0;
         this.pa = "";
         this.cnpj = "";

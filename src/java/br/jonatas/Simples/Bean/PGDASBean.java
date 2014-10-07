@@ -9,7 +9,7 @@ package br.jonatas.Simples.Bean;
  *
  * @author issqn
  */
-public class PGDAS {
+public class PGDASBean {
     private int id;
     private String pa;
     private String razao;
@@ -22,7 +22,7 @@ public class PGDAS {
     private String data;
     private String operacao;
 
-    public PGDAS() {
+    public PGDASBean() {
         id = 0;
         pa = "";
         razao = "";

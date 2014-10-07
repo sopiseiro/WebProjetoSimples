@@ -9,6 +9,6 @@ package br.jonatas.Simples.Modelo;
  *
  * @author issqn
  */
-public class dadosContribuinteDAO {
+public class DadosContribuinteDAO {
     
 }

@@ -6,7 +6,8 @@
 package br.jonatas.Simples.Modelo;
 
 import br.jonatas.Simples.Modelo.ConnectionFactory;
-import br.jonatas.Simples.Bean.PGDAS;
+import br.jonatas.Simples.Bean.PGDASBean;
+import br.jonatas.Simples.util.Mascaras;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class PGDASDAO {
         connection = ConnectionFactory.getConnection();
     }
 
-    public void inserir(PGDAS pgdas) {
+    public void inserir(PGDASBean pgdas) {
         try {
             String SQL = "INSERT INTO pgdas (pa, razao, cnpj, valorpa, valdecsemretencao, "
                     + "valdeccomretencao, valorrecoiss, aliquota, data, operacao) values"
@@ -69,14 +70,14 @@ public class PGDASDAO {
 
     }
 
-    public List<PGDAS> listar() {
-        List<PGDAS> pg = new ArrayList<PGDAS>();
+    public List<PGDASBean> listar() {
+        List<PGDASBean> pg = new ArrayList<PGDASBean>();
         try {
             String SQL = "SELECT * FROM pgdas";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                PGDAS pgd = new PGDAS();
+                PGDASBean pgd = new PGDASBean();
                 pgd.setId(rs.getInt("id"));
                 pgd.setPa(rs.getString("pa"));
                 pgd.setRazao(rs.getString("razao"));
@@ -103,8 +104,11 @@ public class PGDASDAO {
         }
     }
 
-    public List<PGDAS> buscaCompetenciaCNPJPA(String pa, String cnpj) {
-        List<PGDAS> pg = new ArrayList<PGDAS>();
+    public List<PGDASBean> buscaCompetenciaCNPJPA(String pa, String cnpj) {
+        List<PGDASBean> pg = new ArrayList<PGDASBean>();
+        String pattern = "##.###.###/####-##";
+        Mascaras m = new Mascaras();
+        
         try {
             String SQL = "";
             PreparedStatement ps = null;
@@ -130,21 +134,21 @@ public class PGDASDAO {
                 ps.setString(2, cnpj);
             }
             
-            if (pa.equals("") && cnpj.equals("")) {
+            /*if (pa.equals("") && cnpj.equals("")) {
                 SQL = "SELECT * FROM pgdas";
                 ps = connection.prepareStatement(SQL);
-            }
+            }*/
             
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 String paCorreto = rs.getString("pa").substring(4 ,6);
                        paCorreto += "/"+ rs.getString("pa").substring(0 ,4);
-                PGDAS pgd = new PGDAS();
+                PGDASBean pgd = new PGDASBean();
                 pgd.setId(rs.getInt("id"));
                 pgd.setPa(paCorreto);
                 pgd.setRazao(rs.getString("razao"));
-                pgd.setCnpj(rs.getString("cnpj"));
+                pgd.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
                 pgd.setValorpa(rs.getFloat("valorpa"));
                 pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
                 pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
@@ -168,11 +172,11 @@ public class PGDASDAO {
         }
     }
 
-    public PGDAS buscar(int id) {
+    public PGDASBean buscar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void editar(PGDAS pgdas) {
+    public void editar(PGDASBean pgdas) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

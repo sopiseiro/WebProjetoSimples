@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 
-<jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PGDAS"/>
+<jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PGDASBean"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
 <body> 
@@ -81,19 +81,12 @@
             <!--  start page-heading -->
             <div id="page-heading">
                 <h1>PGDAS Consultas</h1>
-                <h3 style="width: 90%">Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, 
-                    e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou
-                    uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos.
-                    Lorem Ipsum sobreviveu não só a cinco séculos, como também 
-                    ao salto para a editoração eletrônica, permanecendo essencialmente 
-                    inalterado. Se popularizou na década de 60, quando a Letraset lançou 
-                    decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser 
-                    integrado a softwares de editoração eletrônica como Aldus PageMaker.</h3>
+                <h3 style="width: 90%">Consulta de forma rápida aliquotas e valores declarados e retificações no PGDAS.</h3>
             </div>
             <!-- end page-heading -->
 
 
-
+        <form id="mainform" action="pgdasControleImpressao" method="POST">   
             <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
                 <tr>
                     <th rowspan="3" class="sized"><img src="images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
@@ -109,7 +102,7 @@
 
 
 
-
+                         
                         <!--  start content-table-inner ...................................................................... START -->
                         <div id="content-table-inner">
 
@@ -124,7 +117,7 @@
 
 
                                 <!--  start product-table ..................................................................................... -->
-                                <form id="mainform" action="pgdasControleImpressao" method="POST">
+                                
                                     <!--  start step-holder -->
                                     <div id="step-holder">
                                         <div class="step-no">1</div>
@@ -137,14 +130,15 @@
                                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                                         <tr>
                                             <th valign="top">CNPJ:</th>
-                                            <td><input type="text" value="" name="cnpj" class="inp-form" /></td>
+                                            <td><input type="text" value="${cnpj}" name="cnpj" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <th valign="top">Competência:</th>
-                                            <td><input type="text" name="pa" value="" class="inp-form" /></td>
+                                            <td><input type="text" name="pa" value="${pa}" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
+                                        <input type="hidden" name="retorno" value="submit"/>
 
                                         <tr>
                                             <th valign="top"></th>
@@ -152,6 +146,34 @@
                                             <td></td>
                                         </tr>
                                     </table>
+
+                                    <c:if test="${not empty listaPgdas}">
+                                        <!--  start message-green -->
+                                        <div id="message-green">
+                                            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td class="green-left">Sucesso.</a></td>
+                                                    <td class="green-right"><a class="close-green"><img src="images/table/icon_close_green.gif"   alt="" /></a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--  end message-green -->
+                                    </c:if>
+
+                                    <c:if test="${empty listaPgdas}">
+                                        <c:if test="${not empty retorno}">
+                                            <!--  start message-red -->
+                                            <div id="message-red">
+                                                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td class="red-left">Não foram localizados registros.</td>
+                                                        <td class="red-right"><a class="close-red"><img src="images/table/icon_close_red.gif"   alt="" /></a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <!--  end message-red -->
+                                        </c:if>
+                                    </c:if>
 
                                     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
                                         <tr>
@@ -164,8 +186,15 @@
                                             <th class="table-header-repeat line-left"><a href="">Aliquota</a></th>
                                             <th class="table-header-options line-left"><a href="">Operação</a></th>
                                         </tr>
-                                        <c:forEach  items="${listaPgdas}" var="pgdas">
-                                            <tr>
+                                        <c:forEach  items="${listaPgdas}" var="pgdas" varStatus="loop">
+                                            <c:choose>
+                                                <c:when test="${loop.count % 2 eq 0}">
+                                                    <tr >
+                                                </c:when>
+                                                <c:otherwise>
+                                                <tr class="alternate-row">
+                                                </c:otherwise>
+                                            </c:choose>
                                                 <td><input  type="checkbox"/></td>
                                                 <td>${pgdas.pa}</td>
                                                 <td>${pgdas.cnpj}</td>
@@ -174,13 +203,17 @@
                                                 <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" minFractionDigits="2"/></td>
                                                 <td><fmt:formatNumber value="${pgdas.aliquota}" minFractionDigits="2"/>%</td>
                                                 <td>${pgdas.operacao}</td>
-                                                
+
                                             </tr>
+                                            <c:if test="${loop.last}">
+                                                <tr>
+                                                    <td colspan="8" style="text-align: center;"><b>Total de registros: ${loop.count}</b></td>
+                                                </tr>
+                                            </c:if>
                                         </c:forEach>
 
                                     </table>
                                     <!--  end product-table................................... --> 
-                                </form>
                             </div>
                             <!--  end content-table  -->
 
@@ -205,8 +238,8 @@
                                         <a href="" class="page-far-right"></a>
                                     </td>
                                     <td>
-                                        <select  class="styledselect_pages">
-                                            <option value="">Linhas</option>
+                                        <select name="registro"  class="styledselect_pages">
+                                            <option value="">Registros</option>
                                             <option value="">10</option>
                                             <option value="">20</option>
                                             <option value="">50</option>
@@ -217,6 +250,7 @@
                                 </tr>
                             </table>
                             <!--  end paging................ -->
+                                                            </form>
 
                             <div class="clear"></div>
 
