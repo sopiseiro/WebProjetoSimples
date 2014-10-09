@@ -144,7 +144,7 @@
                                         <tr>
                                             <th valign="top"></th>
                                             <td>
-                                                <input  type="checkbox" name="inconsistencia"/> Somente inconsistências.
+                                                <input  type="checkbox" name="inconsistencia" value="true"/> Somente inconsistências.
                                             </td>
                                             <td></td>
                                         </tr>

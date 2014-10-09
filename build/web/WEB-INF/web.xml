@@ -12,6 +12,14 @@
         <servlet-name>PgdasNFSEimpressaoControle</servlet-name>
         <servlet-class>br.jonatas.Simples.Controle.PgdasNFSEimpressaoControle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>eventosSimplesControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.eventosSimplesControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EventoPeriodoSimplesControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.EventoPeriodoTabelaSimplesControle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <url-pattern>/relatorioPGDASCompleto/</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>PgdasNFSEimpressaoControle</servlet-name>
         <url-pattern>/PgdasNFSEimpressaoControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>eventosSimplesControle</servlet-name>
+        <url-pattern>/eventosSimplesControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventoPeriodoSimplesControle</servlet-name>
+        <url-pattern>/EventoPeriodoSimplesControle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

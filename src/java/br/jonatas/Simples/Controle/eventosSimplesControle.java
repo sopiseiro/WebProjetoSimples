@@ -5,9 +5,6 @@
  */
 package br.jonatas.Simples.Controle;
 
-import br.jonatas.Simples.Bean.PgdasNFSeBean;
-import br.jonatas.Simples.Modelo.PgdasNFSEDAO;
-import com.lowagie.text.pdf.Pfm2afm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author issqn
  */
-public class PgdasNFSEimpressaoControle extends HttpServlet {
+public class eventosSimplesControle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +29,19 @@ public class PgdasNFSEimpressaoControle extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PgdasNFSEDAO model = new PgdasNFSEDAO();
-        
-        //List<PgdasNFSeBean> pgnf = new PgdasNFSeBean();
-        
-        //pgnf = model.buscaInconsistencia("201408", "", true);
-        String cnpj = request.getParameter("cnpj");
-        String pa   = request.getParameter("pa");
-        String inconsistencia = request.getParameter("inconsistencia");
-        
-        request.setAttribute("inco", inconsistencia);
-        request.setAttribute("listaPgdas",model.buscaInconsistencia(pa, cnpj, inconsistencia));
-        request.getRequestDispatcher("impressaoPGDASvsNFS.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet eventosSimplesControle</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet eventosSimplesControle at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +56,7 @@ public class PgdasNFSEimpressaoControle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("impressaoPGDASvsNFS.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

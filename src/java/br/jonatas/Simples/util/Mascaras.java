@@ -27,4 +27,8 @@ public class Mascaras {
             throw new RuntimeException(e);
         }
     }
+    
+    public String getCompetencia(String data){
+        return data.substring(4, 6)+"/"+data.substring(0, 4);
+    }
 }

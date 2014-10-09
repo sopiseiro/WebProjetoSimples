@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,7 +30,7 @@ public class PgdasNFSEDAO {
         connection = ConnectionFactory.getConnection();
     }
 
-    public List<PgdasNFSeBean> buscaInconsistencia(String pa, String cnpj, boolean inconsistencia) {
+    public List<PgdasNFSeBean> buscaInconsistencia(String pa, String cnpj, String inconsistencia) {
         List<PgdasNFSeBean> pgnf = new ArrayList<PgdasNFSeBean>();
         String pattern = "##.###.###/####-##";
         Mascaras m = new Mascaras();
@@ -40,9 +40,7 @@ public class PgdasNFSEDAO {
             PreparedStatement ps = null;
             
 
-                 /*"SELECT pgdas.pa, pgdas.razao, pgdas.cnpj, pgdas.valorpa "
-                        + " FROM pgdas WHERE pgdas.pa = ?";*/
-                        
+         
                    SQL =  "SELECT" 
                         + " pgdas.pa, pgdas.razao, pgdas.CNPJ, pgdas.VALORPA, pgdas.VALDECSEMRETENCAO, pgdas.VALDECCOMRETENCAO, pgdas.ALIQUOTA,"
                         + "	dadoscontribuinte.PA, dadoscontribuinte.CNPJ, dadoscontribuinte.VALORRETIDO, dadoscontribuinte.VALORSEMRETENCAO,"
@@ -57,11 +55,10 @@ public class PgdasNFSEDAO {
                         + "	(pgdas.VALDECCOMRETENCAO - dadoscontribuinte.VALORRETIDO) <> 0 )"
                         + " GROUP BY pgdas.CNPJ"
                         + " ORDER BY pgdas.RAZAO".toLowerCase();
-                
-                
-                
-                ps = connection.prepareStatement(SQL);
-                ps.setString(1, pa);
+                   ps = connection.prepareStatement(SQL);
+                   ps.setString(1, pa);
+            
+           
                        
             ResultSet rs = ps.executeQuery();
 
