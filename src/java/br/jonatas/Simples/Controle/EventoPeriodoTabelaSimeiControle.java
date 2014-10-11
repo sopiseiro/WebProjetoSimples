@@ -5,6 +5,7 @@
  */
 package br.jonatas.Simples.Controle;
 
+import br.jonatas.Simples.Modelo.EventoPeriodoTabelaSimeiDAO;
 import br.jonatas.Simples.Modelo.EventoPeriodoTabelaSimplesDAO;
 import br.jonatas.Simples.Modelo.PgdasNFSEDAO;
 import br.jonatas.Simples.util.Mascaras;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,9 +39,13 @@ public class EventoPeriodoTabelaSimeiControle extends HttpServlet {
         String pa = request.getParameter("pa");
         String opc = request.getParameter("opc");
         
-        EventoPeriodoTabelaSimplesDAO model = new EventoPeriodoTabelaSimplesDAO();
+        EventoPeriodoTabelaSimeiDAO model = new EventoPeriodoTabelaSimeiDAO();
+        
+        
         
         request.setAttribute("listaPgdas",model.buscaInconsistencia(m.getCompetenciaConsulta(pa), opc));
+        request.setAttribute("pa", pa);
+        request.setAttribute("opc", opc);
         
         request.getRequestDispatcher("eventosimei.jsp").forward(request, response);
     }

@@ -38,7 +38,7 @@ public class Mascaras {
     }
     
     public String getCompetenciaConsulta(String data){
-        JOptionPane.showMessageDialog(null, data.substring(3, 7)+data.substring(0, 2));
+        //JOptionPane.showMessageDialog(null, data.substring(3, 7)+data.substring(0, 2));
         return data.substring(3, 7)+data.substring(0, 2);
     }
     

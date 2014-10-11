@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,7 +48,6 @@ public class EventoPeriodoTabelaSimeiDAO {
         Mascaras m = new Mascaras();
 
         try {
-
             String SQL = "";
             PreparedStatement ps = null;
 
@@ -61,16 +61,18 @@ public class EventoPeriodoTabelaSimeiDAO {
                         + "     tabelaEventosSimples.tipo_evento,"
                         + "     eventoSimei.data_efeito"
                         + " FROM "
-                        + "     tabelaEventosSimples, eventoSimei, periodoSimei "
+                        + "     tabelaEventosSimples, eventoSimei "
                         + " WHERE "
                         + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento "
                         + " AND"
                         + "     eventoSimei.data_ocorrencia like ?"
                         + " AND"
-                        + "     tabelaEventosSimples.cod_evento = '590'";
+                        + "     tabelaEventosSimples.cod_evento = ?";
+                        
 
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
+                ps.setString(2, "590");
                 
 
             }
@@ -85,16 +87,17 @@ public class EventoPeriodoTabelaSimeiDAO {
                         + "     tabelaEventosSimples.tipo_evento,"
                         + "     eventoSimei.data_efeito"
                         + " FROM "
-                        + "     tabelaEventosSimples, eventoSimei, periodoSimei "
+                        + "     tabelaEventosSimples, eventoSimei "
                         + " WHERE "
                         + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento "
                         + " AND"
                         + "     eventoSimei.data_ocorrencia like ? "
                         + " AND "
-                        + "     tabelaEventosSimples.tipo_evento = 'I'";
+                        + "     tabelaEventosSimples.tipo_evento = ?";
 
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
+                ps.setString(2, "I");
 
             }
 
@@ -108,16 +111,17 @@ public class EventoPeriodoTabelaSimeiDAO {
                         + "     tabelaEventosSimples.tipo_evento,"
                         + "     eventoSimei.data_efeito"
                         + " FROM "
-                        + "     tabelaEventosSimples, eventoSimei, periodoSimei "
+                        + "     tabelaEventosSimples, eventoSimei "
                         + " WHERE "
-                        + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento "
+                        + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento"
                         + " AND"
                         + "     eventoSimei.data_ocorrencia like ? "
                         + " AND"
-                        + "     tabelaEventosSimples.tipo_evento = 'E'";
+                        + "     tabelaEventosSimples.tipo_evento = ?";
 
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
+                ps.setString(2, "E");
 
             }
             
@@ -132,11 +136,12 @@ public class EventoPeriodoTabelaSimeiDAO {
                         + "     tabelaEventosSimples.tipo_evento,"
                         + "     eventoSimei.data_efeito"
                         + " FROM "
-                        + "     tabelaEventosSimples, eventoSimei, periodoSimei "
+                        + "     eventoSimei,tabelaEventosSimples "
                         + " WHERE "
-                        + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento "
-                        + "     AND"
+                        + "    tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento"
+                        + " AND"
                         + "     eventoSimei.data_ocorrencia like ? ";
+                        
 
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");

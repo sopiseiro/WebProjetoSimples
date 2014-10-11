@@ -7,6 +7,12 @@
 <jsp:useBean id="eve" class="br.jonatas.Simples.Bean.eventoSimeiBean"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
+
+<script type="text/javascript">
+    $(function(){
+         $('#opc').find('option[value="${opc}"]').attr('selected',true);
+    });
+</script>
 <body> 
     <!-- Start: page-top-outer -->
     <div id="page-top-outer">    
@@ -140,7 +146,7 @@
                                         <tr>
                                             <th valign="top">Opções:</th>
                                             <td>
-                                                <select class="styledselect_form_1">
+                                                <select id="opc" name="opc" class="styledselect_form_1">
                                                     <option value="1">Opções</option>
                                                     <option value="2">Somente Baixadas.</option>
                                                     <option value="3">Somente Aberturas.</option>
