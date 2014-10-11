@@ -13,6 +13,15 @@ public class EventoPeriodoTabelaSimeiBean {
     
     private eventoSimeiBean evento;
     private periodoSimeiBean periodo;
+    private TabelaEventoSimeiBean tabela;
+
+    public TabelaEventoSimeiBean getTabela() {
+        return tabela;
+    }
+
+    public void setTabela(TabelaEventoSimeiBean tabela) {
+        this.tabela = tabela;
+    }
 
     public EventoPeriodoTabelaSimeiBean() {
     }

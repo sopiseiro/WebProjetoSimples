@@ -7,6 +7,7 @@ package br.jonatas.Simples.Controle;
 
 import br.jonatas.Simples.Modelo.EventoPeriodoTabelaSimplesDAO;
 import br.jonatas.Simples.Modelo.PgdasNFSEDAO;
+import br.jonatas.Simples.util.Mascaras;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author issqn
  */
-public class EventoPeriodoTabelaSimplesControle extends HttpServlet {
+public class EventoPeriodoTabelaSimeiControle extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,15 +32,16 @@ public class EventoPeriodoTabelaSimplesControle extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Mascaras m = new Mascaras();
         
         String pa = request.getParameter("pa");
         String opc = request.getParameter("opc");
         
         EventoPeriodoTabelaSimplesDAO model = new EventoPeriodoTabelaSimplesDAO();
         
-        request.setAttribute("listaPgdas",model.buscaInconsistencia(pa, ""));
+        request.setAttribute("listaPgdas",model.buscaInconsistencia(m.getCompetenciaConsulta(pa), opc));
         
-        request.getRequestDispatcher("eventosimples.jsp").forward(request, response);
+        request.getRequestDispatcher("eventosimei.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,7 +56,7 @@ public class EventoPeriodoTabelaSimplesControle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       request.getRequestDispatcher("eventosimples.jsp").forward(request, response);
+       request.getRequestDispatcher("eventosimei.jsp").forward(request, response);
     }
 
     /**

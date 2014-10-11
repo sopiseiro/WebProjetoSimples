@@ -6,6 +6,7 @@
 package br.jonatas.Simples.util;
 
 import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -30,5 +31,18 @@ public class Mascaras {
     
     public String getCompetencia(String data){
         return data.substring(4, 6)+"/"+data.substring(0, 4);
+    }
+    
+    public String getData(String data){
+        return data.substring(6, 8)+"/"+data.substring(4, 6)+"/"+data.substring(0, 4);
+    }
+    
+    public String getCompetenciaConsulta(String data){
+        JOptionPane.showMessageDialog(null, data.substring(3, 7)+data.substring(0, 2));
+        return data.substring(3, 7)+data.substring(0, 2);
+    }
+    
+    public String getRemoveCnpj(String cnpj){
+        return cnpj.replace(".", "").replace("/", "").replace("-", "").replace(" ", "");
     }
 }

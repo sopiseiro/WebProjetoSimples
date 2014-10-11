@@ -2,7 +2,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 
-<jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PgdasNFSeBean"/>
+<jsp:useBean id="per" class="br.jonatas.Simples.Bean.periodoSimeiBean"/>
+<jsp:useBean id="tab" class="br.jonatas.Simples.Bean.EventoPeriodoTabelaSimeiBean"/>
+<jsp:useBean id="eve" class="br.jonatas.Simples.Bean.eventoSimeiBean"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
 <body> 
@@ -80,14 +82,15 @@
 
             <!--  start page-heading -->
             <div id="page-heading">
-                <h1>PGDAS vs NFS-e</h1>
-                <h3 style="width: 90%">Nesta seção, são apresentados os valores declarados do PGDAS e confrontados com os valores de serviços prestados.
-                    Para utilização desta função o usuário deverá fazer a importação dos dados fiscais municipais. </h3>
+                <h1>Eventos Simei</h1>
+                <h3 style="width: 90%">
+                   Seção destinada dos MEI's que sofreram algum tipo de alteração
+                   na competência, sendo essas alterações de opção, baixa, desenquadramento.</h3>
             </div>
             <!-- end page-heading -->
 
 
-
+        <form id="mainform" action="EventoPeriodoTabelaSimeiControle" method="POST">   
             <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
                 <tr>
                     <th rowspan="3" class="sized"><img src="images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
@@ -103,7 +106,7 @@
 
 
 
-
+                         
                         <!--  start content-table-inner ...................................................................... START -->
                         <div id="content-table-inner">
 
@@ -118,7 +121,7 @@
 
 
                                 <!--  start product-table ..................................................................................... -->
-                                <form id="mainform" action="PgdasNFSEimpressaoControle" method="POST">
+                                
                                     <!--  start step-holder -->
                                     <div id="step-holder">
                                         <div class="step-no">1</div>
@@ -135,19 +138,22 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <th valign="top">CNPJ:</th>
-                                            <td><input type="text" id="cnpj" value="${cnpj}" name="cnpj" class="inp-form" /></td>
-                                            <td></td>
-                                        </tr>
-                                        <input type="hidden" name="retorno" value="submit"/>
-
-                                        <tr>
-                                            <th valign="top"></th>
+                                            <th valign="top">Opções:</th>
                                             <td>
-                                                <input  type="checkbox" name="inconsistencia" value="true"/> Somente inconsistências.
+                                                <select class="styledselect_form_1">
+                                                    <option value="1">Opções</option>
+                                                    <option value="2">Somente Baixadas.</option>
+                                                    <option value="3">Somente Aberturas.</option>
+                                                    <option value="4">Somente Desenquadradas.</option>
+                                                </select>
+                                               
+                                                
                                             </td>
                                             <td></td>
                                         </tr>
+                                                                         
+                                        <input type="hidden" name="retorno" value="submit"/>
+
                                         <tr>
                                             <th valign="top"></th>
                                             <td><input type="submit" value="Enviar" name="botao" /></td>
@@ -186,16 +192,15 @@
                                     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
                                         <tr>
                                             <th class="table-header-check"><a id="toggle-all" ></a> </th>
-                                            <th class="table-header-repeat line-left"><a href="">P.A.</a>	</th>
-                                            <th class="table-header-repeat line-left"><a href="">CNPJ</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Razão</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Info</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Devido</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Retido</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Total</a></th>
-
+                                            <th style="width: 150px" class="table-header-repeat line-left"><a href=""> CNPJ</a>	</th>
+                                            <th class="table-header-repeat line-left minwidth-1"><a href="">Ocorrência</a></th>
+                                            <th class="table-header-repeat line-left minwidth-1"><a href="">Efeito</a></th>
+                                            <th style="width: 400px" class="table-header-repeat line-left"><a href="">Descrição do Evento</a></th>
+                                            <th class="table-header-repeat line-left"><a href="">Natureza</a></th>
+                                            <th class="table-header-repeat line-left"><a href="">Situação</a></th>
+                                            <th class="table-header-repeat"><a href="">Tipo Evento</a></th>
                                         </tr>
-                                        <c:forEach  items="${listaPgdas}" var="pgdas" varStatus="loop">
+                                       <c:forEach  items="${listaPgdas}" var="tab" varStatus="loop">
                                             <c:choose>
                                                 <c:when test="${loop.count % 2 eq 0}">
                                                     <tr >
@@ -204,32 +209,14 @@
                                                 <tr class="alternate-row">
                                                 </c:otherwise>
                                             </c:choose>
-                                            
                                                 <td><input  type="checkbox"/></td>
-                                                <td>${pgdas.pgdas.pa}</td>
-                                                <td>${pgdas.pgdas.cnpj}</td>
-                                                <td>${pgdas.pgdas.razao}</td>
-                                                <td>
-                                                    PGDAS<br>
-                                                    NFS-e<br>
-                                                    Diferença
-                                                </td>
-                                                <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao - pgdas.dc.valorsemretencao}" minFractionDigits="2"/>
-                                                </td>
-                                                <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao - pgdas.dc.valorretido}" minFractionDigits="2"/>
-                                                </td>
-                                                <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido + pgdas.dc.valorsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${(pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao) - (pgdas.dc.valorretido + pgdas.dc.valorsemretencao)}" minFractionDigits="2"/>
-                                                </td>
-                                                
+                                                <td>${tab.evento.cnpj}</td>
+                                                <td>${tab.evento.dataOcorrencia}</td>
+                                                <td>${tab.evento.dataEfeito}</td>
+                                                <td>${tab.tabela.nome_evento}</td>
+                                                <td>${tab.evento.naturezaEvento}</td>
+                                                <td>${tab.tabela.cod_evento}</td>
+                                                <td>${tab.tabela.tipo_evento}</td>
 
                                             </tr>
                                             <c:if test="${loop.last}">
@@ -238,10 +225,8 @@
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
-
                                     </table>
                                     <!--  end product-table................................... --> 
-                                </form>
                             </div>
                             <!--  end content-table  -->
 
@@ -266,8 +251,8 @@
                                         <a href="" class="page-far-right"></a>
                                     </td>
                                     <td>
-                                        <select  class="styledselect_pages">
-                                            <option value="">Linhas</option>
+                                        <select name="registro"  class="styledselect_pages">
+                                            <option value="">Registros</option>
                                             <option value="">10</option>
                                             <option value="">20</option>
                                             <option value="">50</option>
@@ -278,6 +263,7 @@
                                 </tr>
                             </table>
                             <!--  end paging................ -->
+                                                            </form>
 
                             <div class="clear"></div>
 

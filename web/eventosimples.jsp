@@ -134,7 +134,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                                         <tr>
                                             <th valign="top">Competência:</th>
-                                            <td><input type="text" name="pa" value="${pa}" class="inp-form" /></td>
+                                            <td><input type="text" id="pa" name="pa" value="${pa}" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
@@ -192,12 +192,13 @@
                                     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
                                         <tr>
                                             <th class="table-header-check"><a id="toggle-all" ></a> </th>
-                                            <th class="table-header-repeat line-left"><a href="">CNPJ.</a>	</th>
-                                            <th class="table-header-repeat line-left"><a href="">Data Ocorrência</a></th>
-                                            <th class="table-header-repeat line-left"><a href="">Descrição do Evento</a></th>
+                                            <th style="width: 150px" class="table-header-repeat line-left"><a href="">CNPJ</a>	</th>
+                                            <th class="table-header-repeat line-left minwidth-1"><a href="">Ocorrência</a></th>
+                                            <th class="table-header-repeat line-left minwidth-1"><a href="">Efeito</a></th>
+                                            <th style="width: 400px"class="table-header-repeat line-left"><a href="">Descrição do Evento</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Natureza</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Situação</a></th>
-                                            <th class="table-header-options line-left"><a href="">Tipo Evento</a></th>
+                                            <th class="table-header-repeat"><a href="">Evento</a></th>
                                         </tr>
                                        <c:forEach  items="${listaPgdas}" var="tab" varStatus="loop">
                                             <c:choose>
@@ -210,11 +211,12 @@
                                             </c:choose>
                                                 <td><input  type="checkbox"/></td>
                                                 <td>${tab.evento.cnpj}</td>
-                                                <td>${tab.evento.dataOcorrencia}</td>
+                                                <td style="text-align: center">${tab.evento.dataOcorrencia}</td>
+                                                <td style="text-align: center">${tab.evento.dataEfeito}</td>
                                                 <td>${tab.tabela.nome_evento}</td>
                                                 <td>${tab.evento.naturezaEvento}</td>
-                                                <td>${tab.tabela.cod_evento}</td>
-                                                <td>${tab.tabela.tipo_evento}</td>
+                                                <td style="text-align: center">${tab.tabela.cod_evento}</td>
+                                                <td style="text-align: center">${tab.tabela.tipo_evento}</td>
 
                                             </tr>
                                             <c:if test="${loop.last}">

@@ -129,13 +129,14 @@
 
                                     <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                                         <tr>
-                                            <th valign="top">CNPJ:</th>
-                                            <td><input type="text" value="${cnpj}" name="cnpj" class="inp-form" /></td>
+                                            <th valign="top">Competência:</th>
+                                            <td><input type="text" id="pa" name="pa" value="${pa}" class="inp-form" /></td>
                                             <td></td>
+                                            
                                         </tr>
                                         <tr>
-                                            <th valign="top">Competência:</th>
-                                            <td><input type="text" name="pa" value="${pa}" class="inp-form" /></td>
+                                            <th valign="top">CNPJ:</th>
+                                            <td><input type="text" id="cnpj" value="${cnpj}" name="cnpj" class="inp-form" /></td>
                                             <td></td>
                                         </tr>
                                         <input type="hidden" name="retorno" value="submit"/>

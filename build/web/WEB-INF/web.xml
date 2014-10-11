@@ -20,6 +20,10 @@
         <servlet-name>EventoPeriodoSimplesControle</servlet-name>
         <servlet-class>br.jonatas.Simples.Controle.EventoPeriodoTabelaSimplesControle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EventoPeriodoTabelaSimeiControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.EventoPeriodoTabelaSimeiControle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <url-pattern>/relatorioPGDASCompleto/</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>EventoPeriodoSimplesControle</servlet-name>
         <url-pattern>/EventoPeriodoSimplesControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventoPeriodoTabelaSimeiControle</servlet-name>
+        <url-pattern>/EventoPeriodoTabelaSimeiControle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

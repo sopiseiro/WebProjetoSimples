@@ -9,11 +9,11 @@ package br.jonatas.Simples.Bean;
  *
  * @author issqn
  */
-public class TabelaEventoSimplesBean {
+public class TabelaEventoSimeiBean {
     
     private String cod_evento, nome_evento, tipo_evento;
 
-    public TabelaEventoSimplesBean() {
+    public TabelaEventoSimeiBean() {
     }
 
     public String getTipo_evento() {

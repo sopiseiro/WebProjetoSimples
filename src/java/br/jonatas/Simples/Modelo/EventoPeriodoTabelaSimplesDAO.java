@@ -52,6 +52,7 @@ public class EventoPeriodoTabelaSimplesDAO {
                     + "     eventoSimples.cnpj,"
                     + "     eventoSimples.natureza_evento,"
                     + "     eventoSimples.codigo_evento,"
+                    + "     eventoSimples.data_efeito,"
                     + "     eventoSimples.data_ocorrencia, "
                     + "     tabelaEventosSimples.nome_evento,"
                     + "     tabelaEventosSimples.tipo_evento"
@@ -74,8 +75,9 @@ public class EventoPeriodoTabelaSimplesDAO {
                 TabelaEventoSimplesBean t = new TabelaEventoSimplesBean();
 
                 e.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
-                e.setDataOcorrencia(m.getCompetencia(rs.getString("data_ocorrencia")));
+                e.setDataOcorrencia(m.getData(rs.getString("data_ocorrencia")));
                 e.setNaturezaEvento(ato[Integer.parseInt(rs.getString("natureza_evento"))-1]);
+                e.setDataEfeito(m.getData(rs.getString("data_efeito")));
                 
                 t.setNome_evento(rs.getString("nome_evento"));
                 t.setTipo_evento(rs.getString("tipo_evento").equals("E ")?"Desenquadrado":"Ingresso");
