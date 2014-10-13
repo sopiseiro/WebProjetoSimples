@@ -39,36 +39,27 @@ public class PgdasImpressaoControle extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pattern = "##.###.###/####-##";
         Mascaras m = new Mascaras();
         
-        try {
-            if (request.getParameter("retorno").equals("") || request.getParameter("retorno") == null){
+            if (request.getParameter("retorno").equals("") || request.getParameter("retorno") == null)
                 request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
-            }
             
-            Connection conn = ConnectionFactory.getConnection();
 
             String pa = request.getParameter("pa");
-            String cnpj = request.getParameter("cnpj").replace(".", "").replace("/", "").replace("-", "").replace(" ", "");
+            String cnpj = m.getRemoveCnpj(request.getParameter("cnpj"));//.replace(".", "").replace("/", "").replace("-", "").replace(" ", "");
             String retorno = request.getParameter("retorno");
 
             List<PGDASBean> pg = new ArrayList<PGDASBean>();
             PGDASDAO model = new PGDASDAO();
-            pg = model.buscaCompetenciaCNPJPA(pa, cnpj);
+            pg = model.buscaCompetenciaCNPJPA(m.getCompetenciaConsulta(pa), m.getRemoveCnpj(cnpj));
 
             request.setAttribute("listaPgdas", pg);
-            request.setAttribute("cnpj",m.Mascara(pattern, cnpj));
+            request.setAttribute("cnpj",cnpj);
             request.setAttribute("pa", pa);
             request.setAttribute("retorno", retorno);
 
             request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
 
-            conn.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(PgdasImpressaoControle.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

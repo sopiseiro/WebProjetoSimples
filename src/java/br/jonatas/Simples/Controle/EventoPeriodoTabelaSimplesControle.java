@@ -7,6 +7,7 @@ package br.jonatas.Simples.Controle;
 
 import br.jonatas.Simples.Modelo.EventoPeriodoTabelaSimplesDAO;
 import br.jonatas.Simples.Modelo.PgdasNFSEDAO;
+import br.jonatas.Simples.util.Mascaras;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -31,13 +32,15 @@ public class EventoPeriodoTabelaSimplesControle extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        Mascaras m = new Mascaras();
         String pa = request.getParameter("pa");
         String opc = request.getParameter("opc");
         
         EventoPeriodoTabelaSimplesDAO model = new EventoPeriodoTabelaSimplesDAO();
         
-        request.setAttribute("listaPgdas",model.buscaInconsistencia(pa, ""));
+        request.setAttribute("listaPgdas",model.buscaInconsistencia(m.getCompetenciaConsulta(pa), opc));
+        request.setAttribute("pa", pa);
+        request.setAttribute("opc", opc);
         
         request.getRequestDispatcher("eventosimples.jsp").forward(request, response);
     }

@@ -116,12 +116,15 @@ public class EventoPeriodoTabelaSimeiDAO {
                         + "     tabelaEventosSimples.cod_evento = eventoSimei.codigo_evento"
                         + " AND"
                         + "     eventoSimei.data_ocorrencia like ? "
+                        + " AND "
+                        + "     tabelaEventosSimples.cod_evento <> ? "
                         + " AND"
                         + "     tabelaEventosSimples.tipo_evento = ?";
 
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
-                ps.setString(2, "E");
+                ps.setString(2, "590");
+                ps.setString(3, "E");
 
             }
             
@@ -158,7 +161,7 @@ public class EventoPeriodoTabelaSimeiDAO {
                 e.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
                 e.setDataOcorrencia(m.getData(rs.getString("data_ocorrencia")));
                 e.setNaturezaEvento(ato[Integer.parseInt(rs.getString("natureza_evento")) - 1]);
-                e.setDataEfeito(rs.getString("data_efeito"));
+                e.setDataEfeito(m.getData(rs.getString("data_efeito")));
 
                 t.setNome_evento(rs.getString("nome_evento"));
                 t.setTipo_evento(rs.getString("tipo_evento").equals("E ") ? "Desenquadrado" : "Ingresso");

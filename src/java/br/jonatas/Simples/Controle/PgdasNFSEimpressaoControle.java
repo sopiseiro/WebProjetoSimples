@@ -7,6 +7,7 @@ package br.jonatas.Simples.Controle;
 
 import br.jonatas.Simples.Bean.PgdasNFSeBean;
 import br.jonatas.Simples.Modelo.PgdasNFSEDAO;
+import br.jonatas.Simples.util.Mascaras;
 import com.lowagie.text.pdf.Pfm2afm;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,17 +34,25 @@ public class PgdasNFSEimpressaoControle extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        Mascaras m = new Mascaras();
         PgdasNFSEDAO model = new PgdasNFSEDAO();
-        
-        //List<PgdasNFSeBean> pgnf = new PgdasNFSeBean();
-        
-        //pgnf = model.buscaInconsistencia("201408", "", true);
+
         String cnpj = request.getParameter("cnpj");
         String pa   = request.getParameter("pa");
         String inconsistencia = request.getParameter("inconsistencia");
+        String retorno = request.getParameter("retorno");
+        
+        
+        request.setAttribute("listaPgdas",model.buscaInconsistencia(
+                m.getCompetenciaConsulta(pa)
+                , m.getRemoveCnpj(cnpj), inconsistencia));
         
         request.setAttribute("inco", inconsistencia);
-        request.setAttribute("listaPgdas",model.buscaInconsistencia(pa, cnpj, inconsistencia));
+        request.setAttribute("pa", pa);
+        request.setAttribute("cnpj", cnpj);
+        request.setAttribute("retorno", retorno);
+        
         request.getRequestDispatcher("impressaoPGDASvsNFS.jsp").forward(request, response);
     }
 

@@ -185,7 +185,7 @@
                                             <th class="table-header-repeat line-left"><a href="">Devido</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Retido</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Aliquota</a></th>
-                                            <th class="table-header-options line-left"><a href="">Operação</a></th>
+                                            <th class="table-header-repeat line-left"><a href="">Operação</a></th>
                                         </tr>
                                         <c:forEach  items="${listaPgdas}" var="pgdas" varStatus="loop">
                                             <c:choose>

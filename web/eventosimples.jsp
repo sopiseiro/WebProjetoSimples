@@ -140,11 +140,11 @@
                                         <tr>
                                             <th valign="top">Opções:</th>
                                             <td>
-                                                <select class="styledselect_form_1">
-                                                    <option>Opções</option>
-                                                    <option>Somente Baixadas.</option>
-                                                    <option>Somente Aberturas.</option>
-                                                    <option>Somente Desenquadradas.</option>
+                                                <select id="opc" name="opc" class="styledselect_form_1">
+                                                    <option value="1">Opções</option>
+                                                    <option value="2">Somente Baixadas.</option>
+                                                    <option value="3">Somente Aberturas.</option>
+                                                    <option value="4">Somente Desenquadradas.</option>
                                                 </select>
                                                
                                                 

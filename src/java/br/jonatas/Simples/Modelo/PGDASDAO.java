@@ -113,6 +113,9 @@ public class PGDASDAO {
             String SQL = "";
             PreparedStatement ps = null;
             
+            if (pa.equals("") && cnpj.equals(""))
+                return null;
+            
             if (!pa.equals("") && cnpj.equals("")) {
                 SQL = "SELECT * FROM pgdas WHERE pa = ? ORDER BY RAZAO, CNPJ ASC    ";
                 ps = connection.prepareStatement(SQL);
@@ -121,14 +124,14 @@ public class PGDASDAO {
             }
             
             if (pa.equals("") && !cnpj.equals("")) {
-                SQL = "SELECT * FROM pgdas WHERE cnpj = ?";
+                SQL = "SELECT * FROM pgdas WHERE cnpj = ? ORDER BY CNPJ ASC";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, cnpj);
                 //ps.setString(2, cnpj);
             }
             
             if (!pa.equals("") && !cnpj.equals("")) {
-                SQL = "SELECT * FROM pgdas WHERE pa = ? AND cnpj = ?";
+                SQL = "SELECT * FROM pgdas WHERE pa = ? AND cnpj = ? ORDER BY RAZAO, CNPJ ASC";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 ps.setString(2, cnpj);

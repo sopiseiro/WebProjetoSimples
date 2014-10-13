@@ -35,9 +35,9 @@ public class EventoPeriodoTabelaSimplesDAO {
         connection = ConnectionFactory.getConnection();
     }
 
-    public List<EventoPeriodoTabelaSimplesBean> buscaInconsistencia(String pa, String inconsistencia) {
+    public List<EventoPeriodoTabelaSimplesBean> buscaInconsistencia(String pa, String opc) {
 
-        String ato[] = {"Medida Judicial","Ato Administrativo","Opção do Contribuinte"};
+        String ato[] = {"Medida Judicial", "Ato Administrativo", "Opção do Contribuinte"};
         List<EventoPeriodoTabelaSimplesBean> eps = new ArrayList<EventoPeriodoTabelaSimplesBean>();
 
         String pattern = "##.###.###/####-##";
@@ -47,25 +47,90 @@ public class EventoPeriodoTabelaSimplesDAO {
 
             String SQL = "";
             PreparedStatement ps = null;
+            
+            if (opc.equals("4")){
+                SQL = "SELECT"
+                        + "     eventoSimples.cnpj,"
+                        + "     eventoSimples.natureza_evento,"
+                        + "     eventoSimples.codigo_evento,"
+                        + "     eventoSimples.data_efeito,"
+                        + "     eventoSimples.data_ocorrencia, "
+                        + "     tabelaEventosSimples.nome_evento,"
+                        + "     tabelaEventosSimples.tipo_evento"
+                        + " FROM "
+                        + "     tabelaEventosSimples, eventoSimples "
+                        + " WHERE "
+                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
+                        + " AND"
+                        + "     eventoSimples.data_ocorrencia like ? "
+                         + " AND "
+                        + "     tabelaEventosSimples.tipo_evento = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa + "%");
+                ps.setString(2, "E");
+            }
+            
+            if (opc.equals("3")){
+                SQL = "SELECT"
+                        + "     eventoSimples.cnpj,"
+                        + "     eventoSimples.natureza_evento,"
+                        + "     eventoSimples.codigo_evento,"
+                        + "     eventoSimples.data_efeito,"
+                        + "     eventoSimples.data_ocorrencia, "
+                        + "     tabelaEventosSimples.nome_evento,"
+                        + "     tabelaEventosSimples.tipo_evento"
+                        + " FROM "
+                        + "     tabelaEventosSimples, eventoSimples "
+                        + " WHERE "
+                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
+                        + " AND"
+                        + "     eventoSimples.data_ocorrencia like ? "
+                         + " AND "
+                        + "     tabelaEventosSimples.tipo_evento = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa + "%");
+                ps.setString(2, "I");
+            }
+            
+            if (opc.equals("2")){
+                SQL = "SELECT"
+                        + "     eventoSimples.cnpj,"
+                        + "     eventoSimples.natureza_evento,"
+                        + "     eventoSimples.codigo_evento,"
+                        + "     eventoSimples.data_efeito,"
+                        + "     eventoSimples.data_ocorrencia, "
+                        + "     tabelaEventosSimples.nome_evento,"
+                        + "     tabelaEventosSimples.tipo_evento"
+                        + " FROM "
+                        + "     tabelaEventosSimples, eventoSimples "
+                        + " WHERE "
+                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
+                        + " AND"
+                        + "     eventoSimples.data_ocorrencia like ? "
+                        + " AND"
+                        + "     tabelaEventosSimples.cod_evento = ?";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa + "%");
+                ps.setString(2, "390");
+            }
 
-            SQL = "SELECT"
-                    + "     eventoSimples.cnpj,"
-                    + "     eventoSimples.natureza_evento,"
-                    + "     eventoSimples.codigo_evento,"
-                    + "     eventoSimples.data_efeito,"
-                    + "     eventoSimples.data_ocorrencia, "
-                    + "     tabelaEventosSimples.nome_evento,"
-                    + "     tabelaEventosSimples.tipo_evento"
-                    + " FROM "
-                    + "     tabelaEventosSimples, eventoSimples "
-                    + " WHERE "
-                    + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento AND"
-                    + "     eventoSimples.data_ocorrencia like ? ";
-                    
-            
-            
-            ps = connection.prepareStatement(SQL);
-            ps.setString(1, pa +"%");
+            if (opc.equals("1")) {
+                SQL = "SELECT"
+                        + "     eventoSimples.cnpj,"
+                        + "     eventoSimples.natureza_evento,"
+                        + "     eventoSimples.codigo_evento,"
+                        + "     eventoSimples.data_efeito,"
+                        + "     eventoSimples.data_ocorrencia, "
+                        + "     tabelaEventosSimples.nome_evento,"
+                        + "     tabelaEventosSimples.tipo_evento"
+                        + " FROM "
+                        + "     tabelaEventosSimples, eventoSimples "
+                        + " WHERE "
+                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento AND"
+                        + "     eventoSimples.data_ocorrencia like ? ";
+                ps = connection.prepareStatement(SQL);
+                ps.setString(1, pa + "%");
+            }
 
             ResultSet rs = ps.executeQuery();
 
@@ -76,12 +141,12 @@ public class EventoPeriodoTabelaSimplesDAO {
 
                 e.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
                 e.setDataOcorrencia(m.getData(rs.getString("data_ocorrencia")));
-                e.setNaturezaEvento(ato[Integer.parseInt(rs.getString("natureza_evento"))-1]);
+                e.setNaturezaEvento(ato[Integer.parseInt(rs.getString("natureza_evento")) - 1]);
                 e.setDataEfeito(m.getData(rs.getString("data_efeito")));
-                
+
                 t.setNome_evento(rs.getString("nome_evento"));
-                t.setTipo_evento(rs.getString("tipo_evento").equals("E ")?"Desenquadrado":"Ingresso");
-                t.setCod_evento(rs.getString("codigo_evento").equals("390")?"Baixada":"Ativo");
+                t.setTipo_evento(rs.getString("tipo_evento").equals("E ") ? "Desenquadrado" : "Ingresso");
+                t.setCod_evento(rs.getString("codigo_evento").equals("390") ? "Baixada" : "Ativo");
 
                 EventoPeriodoTabelaSimplesBean aux = new EventoPeriodoTabelaSimplesBean();
 

@@ -144,7 +144,12 @@
                                         <tr>
                                             <th valign="top"></th>
                                             <td>
-                                                <input  type="checkbox" name="inconsistencia" value="true"/> Somente inconsistências.
+                                                <input  type="checkbox" name="inconsistencia" 
+                                                        <c:if test="${not empty inco}"> 
+                                                            checked="1"
+                                                        </c:if>    
+                                                        />
+                                                        Somente inconsistências.
                                             </td>
                                             <td></td>
                                         </tr>
@@ -215,19 +220,19 @@
                                                     Diferença
                                                 </td>
                                                 <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao - pgdas.dc.valorsemretencao}" minFractionDigits="2"/>
+                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorsemretencao}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao - pgdas.dc.valorsemretencao}" minFractionDigits="2" maxFractionDigits="2"/>
                                                 </td>
                                                 <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao - pgdas.dc.valorretido}" minFractionDigits="2"/>
+                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdeccomretencao - pgdas.dc.valorretido}" minFractionDigits="2" maxFractionDigits="2"/>
                                                 </td>
                                                 <td>
-                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido + pgdas.dc.valorsemretencao}" minFractionDigits="2"/><br>
-                                                    R$ <fmt:formatNumber value="${(pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao) - (pgdas.dc.valorretido + pgdas.dc.valorsemretencao)}" minFractionDigits="2"/>
+                                                    R$ <fmt:formatNumber value="${pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${pgdas.dc.valorretido + pgdas.dc.valorsemretencao}" minFractionDigits="2" maxFractionDigits="2"/><br>
+                                                    R$ <fmt:formatNumber value="${(pgdas.pgdas.valdecsemretencao + pgdas.pgdas.valdeccomretencao) - (pgdas.dc.valorretido + pgdas.dc.valorsemretencao)}" minFractionDigits="2" maxFractionDigits="2"/>
                                                 </td>
                                                 
 
