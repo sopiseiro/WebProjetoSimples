@@ -63,11 +63,17 @@ public class EventoPeriodoTabelaSimplesDAO {
                         + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
                         + " AND"
                         + "     eventoSimples.data_ocorrencia like ? "
+                        + " AND"
+                        + "     tabelaEventosSimples.cod_evento <> ? "
+                         + " AND"
+                        + "     tabelaEventosSimples.cod_evento <> ? "
                          + " AND "
                         + "     tabelaEventosSimples.tipo_evento = ?";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
-                ps.setString(2, "E");
+                ps.setString(2, "301");
+                ps.setString(3, "390");
+                ps.setString(4, "E");
             }
             
             if (opc.equals("3")){
@@ -85,11 +91,14 @@ public class EventoPeriodoTabelaSimplesDAO {
                         + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
                         + " AND"
                         + "     eventoSimples.data_ocorrencia like ? "
+                         + " AND"
+                        + "     tabelaEventosSimples.cod_evento <> ? "
                          + " AND "
                         + "     tabelaEventosSimples.tipo_evento = ?";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
-                ps.setString(2, "I");
+                ps.setString(2, "301");
+                ps.setString(3, "I");
             }
             
             if (opc.equals("2")){
@@ -107,11 +116,14 @@ public class EventoPeriodoTabelaSimplesDAO {
                         + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
                         + " AND"
                         + "     eventoSimples.data_ocorrencia like ? "
+                         + " AND"
+                        + "     tabelaEventosSimples.cod_evento <> ? "
                         + " AND"
                         + "     tabelaEventosSimples.cod_evento = ?";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa + "%");
-                ps.setString(2, "390");
+                ps.setString(2, "301");
+                ps.setString(3, "390");
             }
 
             if (opc.equals("1")) {
@@ -126,10 +138,15 @@ public class EventoPeriodoTabelaSimplesDAO {
                         + " FROM "
                         + "     tabelaEventosSimples, eventoSimples "
                         + " WHERE "
-                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento AND"
+                        + "     tabelaEventosSimples.cod_evento = eventoSimples.codigo_evento "
+                        + " AND"
+                        + "     tabelaEventosSimples.cod_evento <> ? "
+                       
+                        + " AND"
                         + "     eventoSimples.data_ocorrencia like ? ";
                 ps = connection.prepareStatement(SQL);
-                ps.setString(1, pa + "%");
+                ps.setString(1, "301");
+                ps.setString(2, pa + "%");
             }
 
             ResultSet rs = ps.executeQuery();

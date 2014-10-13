@@ -35,12 +35,14 @@ public class EventoPeriodoTabelaSimplesControle extends HttpServlet {
         Mascaras m = new Mascaras();
         String pa = request.getParameter("pa");
         String opc = request.getParameter("opc");
+        String retorno = request.getParameter("retorno");
         
         EventoPeriodoTabelaSimplesDAO model = new EventoPeriodoTabelaSimplesDAO();
         
         request.setAttribute("listaPgdas",model.buscaInconsistencia(m.getCompetenciaConsulta(pa), opc));
         request.setAttribute("pa", pa);
         request.setAttribute("opc", opc);
+        request.setAttribute("retorno", retorno);
         
         request.getRequestDispatcher("eventosimples.jsp").forward(request, response);
     }
