@@ -18,6 +18,16 @@ public class Mascaras {
     public Mascaras() {
     }
     
+    public String getCnpjFormatado(String value){
+        MaskFormatter mask;
+        try {
+            mask = new MaskFormatter("##.###.###-####/##");
+            mask.setValueContainsLiteralCharacters(false);
+            return mask.valueToString(value);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public String Mascara(String pattern, Object value) {
         MaskFormatter mask;
         try {
@@ -29,8 +39,8 @@ public class Mascaras {
         }
     }
     
-    public String getCompetencia(String data){
-        return data.substring(4, 6)+"/"+data.substring(0, 4);
+    public String getCompetencia(String pa){
+        return pa.substring(4, 6)+"/"+pa.substring(0, 4);
     }
     
     public String getData(String data){

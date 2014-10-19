@@ -104,62 +104,94 @@ public class PGDASDAO {
         }
     }
 
-    public List<PGDASBean> buscaCompetenciaCNPJPA(String pa, String cnpj) {
+    public List<PGDASBean> buscaCompetenciaCNPJPA(String pa, String cnpj, String only) {
         List<PGDASBean> pg = new ArrayList<PGDASBean>();
         String pattern = "##.###.###/####-##";
         Mascaras m = new Mascaras();
-        
+
         try {
             String SQL = "";
             PreparedStatement ps = null;
-            
-            if (pa.equals("") && cnpj.equals(""))
+
+            if (pa.equals("") && cnpj.equals("") && only == null) {
                 return null;
-            
-            if (!pa.equals("") && cnpj.equals("")) {
+            }
+
+            if (!pa.equals("") && cnpj.equals("") && only == null) {
                 SQL = "SELECT * FROM pgdas WHERE pa = ? ORDER BY RAZAO, CNPJ ASC    ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 //ps.setString(2, cnpj);
             }
-            
-            if (pa.equals("") && !cnpj.equals("")) {
+
+            if (pa.equals("") && !cnpj.equals("") && only == null) {
                 SQL = "SELECT * FROM pgdas WHERE cnpj = ? ORDER BY CNPJ ASC";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, cnpj);
                 //ps.setString(2, cnpj);
             }
-            
-            if (!pa.equals("") && !cnpj.equals("")) {
+
+            if (!pa.equals("") && !cnpj.equals("") && only == null) {
                 SQL = "SELECT * FROM pgdas WHERE pa = ? AND cnpj = ? ORDER BY RAZAO, CNPJ ASC";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 ps.setString(2, cnpj);
             }
-            
-            /*if (pa.equals("") && cnpj.equals("")) {
-                SQL = "SELECT * FROM pgdas";
+
+            if (only != null) {
+                SQL = "SELECT DISTINCT "
+                        + "     dadoscontribuinte.cnpj,"
+                        + "     dadoscontribuinte.pa,"
+                        + "     dadoscontribuinte.valorretido,"
+                        + "     dadoscontribuinte.valorsemretencao,"
+                        + "     dadoscontribuinte.aliquota"
+                        + " FROM "
+                        + "    dadoscontribuinte, pgdas "
+                        + " WHERE "
+                        + "     dadoscontribuinte.pa = ? "
+                        + " AND "
+                        + "     dadoscontribuinte.cnpj NOT IN "
+                        + "     (SELECT DISTINCT pgdas.cnpj FROM pgdas WHERE pgdas.pa = ?)"
+                        
+                        + " ORDER BY dadoscontribuinte.cnpj ASC";
+
                 ps = connection.prepareStatement(SQL);
-            }*/
-            
+                ps.setString(1, pa);
+                ps.setString(2, pa);
+
+            }
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String paCorreto = rs.getString("pa").substring(4 ,6);
-                       paCorreto += "/"+ rs.getString("pa").substring(0 ,4);
-                PGDASBean pgd = new PGDASBean();
-                pgd.setId(rs.getInt("id"));
-                pgd.setPa(paCorreto);
-                pgd.setRazao(rs.getString("razao"));
-                pgd.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
-                pgd.setValorpa(rs.getFloat("valorpa"));
-                pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
-                pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
-                pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
-                pgd.setAliquota(rs.getFloat("aliquota"));
-                pgd.setOperacao(rs.getString("operacao").equals("A")?"Apuração":"Retificação");
-                pgd.setData(rs.getString("data"));
-                pg.add(pgd);
+                if (only == null) {
+                    String paCorreto = rs.getString("pa").substring(4, 6);
+                    paCorreto += "/" + rs.getString("pa").substring(0, 4);
+                    PGDASBean pgd = new PGDASBean();
+                    pgd.setPa(paCorreto);
+                    pgd.setRazao(rs.getString("razao"));
+                    pgd.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
+                    pgd.setValorpa(rs.getFloat("valorpa"));
+                    pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
+                    pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
+                    pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
+                    pgd.setAliquota(rs.getFloat("aliquota"));
+                    pgd.setOperacao(rs.getString("operacao").equals("A") ? "Apuração" : "Retificação");
+                    pgd.setData(rs.getString("data"));
+                    pg.add(pgd);
+                } else {
+                    String paCorreto = rs.getString("pa").substring(4, 6);
+                    paCorreto += "/" + rs.getString("pa").substring(0, 4);
+                    PGDASBean pgd = new PGDASBean();
+                    pgd.setPa(paCorreto);
+                    pgd.setCnpj(m.Mascara(pattern, rs.getString("cnpj")));
+                    pgd.setValdecsemretencao(rs.getFloat("valorretido"));
+                    pgd.setValdeccomretencao(rs.getFloat("valorsemretencao"));
+                    pgd.setAliquota(rs.getFloat("aliquota"));
+                    pgd.setRazao("Não localizado");
+                    pgd.setOperacao("Sem PGDAS");
+                    pg.add(pgd);
+                }
 
             }
 

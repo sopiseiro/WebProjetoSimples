@@ -6,66 +6,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
 <body> 
-    <!-- Start: page-top-outer -->
-    <div id="page-top-outer">    
-
-        <!-- Start: page-top -->
-        <div id="page-top">
-
-            <!-- start logo -->
-            <div id="logo">
-                <a href=""><img src="images/shared/logo.png" width="206" height="60" alt="" /> 
-                    Sistema de Monitoramento Fiscal do Simples Nacional - Modulo Municipal
-                </a>
-            </div>
-            <!-- end logo -->
-
-
-            <div class="clear"></div>
-
-        </div>
-        <!-- End: page-top -->
-
-    </div>
-    <!-- End: page-top-outer -->
-
-    <div class="clear">&nbsp;</div>
-
-    <!--  start nav-outer-repeat................................................................................................. START -->
-    <div class="nav-outer-repeat"> 
-        <!--  start nav-outer -->
-        <div class="nav-outer"> 
-
-            <!-- start nav-right -->
-            <div id="nav-right">
-
-                <div class="nav-divider">&nbsp;</div>
-                <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
-                <div class="nav-divider">&nbsp;</div>
-                <a href="" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
-                <div class="clear">&nbsp;</div>
-
-                <!--  start account-content -->	
-                <div class="account-content">
-                    <div class="account-drop-inner">
-                        <a href="" id="acc-settings">Configuracoes</a>
-                        <div class="clear">&nbsp;</div>
-                        <div class="acc-line">&nbsp;</div>
-                        <a href="" id="acc-details">Cadastro </a>
-
-                    </div>
-                </div>
-                <!--  end account-content -->
-
-            </div>
-            <!-- end nav-right -->
-
-
-            <!--  start nav -->
+<!--  start nav -->
             <%@include file="dependencias/menu.html" %>
             <!--  start nav -->
 
-        </div>
         <div class="clear"></div>
         <!--  start nav-outer -->
     </div>

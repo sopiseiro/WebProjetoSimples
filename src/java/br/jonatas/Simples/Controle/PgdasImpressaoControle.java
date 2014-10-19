@@ -40,23 +40,22 @@ public class PgdasImpressaoControle extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Mascaras m = new Mascaras();
-        
-            if (request.getParameter("retorno").equals("") || request.getParameter("retorno") == null)
-                request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
-            
+           
 
             String pa = request.getParameter("pa");
             String cnpj = m.getRemoveCnpj(request.getParameter("cnpj"));//.replace(".", "").replace("/", "").replace("-", "").replace(" ", "");
             String retorno = request.getParameter("retorno");
+            String inco = request.getParameter("inconsistencia");
 
             List<PGDASBean> pg = new ArrayList<PGDASBean>();
             PGDASDAO model = new PGDASDAO();
-            pg = model.buscaCompetenciaCNPJPA(m.getCompetenciaConsulta(pa), m.getRemoveCnpj(cnpj));
+            pg = model.buscaCompetenciaCNPJPA(m.getCompetenciaConsulta(pa), m.getRemoveCnpj(cnpj), inco);
 
             request.setAttribute("listaPgdas", pg);
             request.setAttribute("cnpj",cnpj);
             request.setAttribute("pa", pa);
             request.setAttribute("retorno", retorno);
+            request.setAttribute("inco", inco);
 
             request.getRequestDispatcher("impressaoPGDAS.jsp").forward(request, response);
 

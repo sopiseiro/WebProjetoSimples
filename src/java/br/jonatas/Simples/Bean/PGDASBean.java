@@ -10,6 +10,7 @@ package br.jonatas.Simples.Bean;
  * @author issqn
  */
 public class PGDASBean {
+    
     private int id;
     private String pa;
     private String razao;

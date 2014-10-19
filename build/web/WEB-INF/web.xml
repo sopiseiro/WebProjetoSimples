@@ -24,6 +24,22 @@
         <servlet-name>EventoPeriodoTabelaSimeiControle</servlet-name>
         <servlet-class>br.jonatas.Simples.Controle.EventoPeriodoTabelaSimeiControle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DadosContribuintePGDASControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.DadosContribuintePGDASControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AliquotaControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.AliquotaControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Autenticacao</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.Autenticacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <url-pattern>/relatorioPGDASCompleto/</url-pattern>
@@ -48,9 +64,28 @@
         <servlet-name>EventoPeriodoTabelaSimeiControle</servlet-name>
         <url-pattern>/EventoPeriodoTabelaSimeiControle</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DadosContribuintePGDASControle</servlet-name>
+        <url-pattern>/DadosContribuintePGDASControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AliquotaControle</servlet-name>
+        <url-pattern>/AliquotaControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Autenticacao</servlet-name>
+        <url-pattern>/Autenticacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

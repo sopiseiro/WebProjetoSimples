@@ -6,66 +6,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
 <body> 
-    <!-- Start: page-top-outer -->
-    <div id="page-top-outer">    
-
-        <!-- Start: page-top -->
-        <div id="page-top">
-
-            <!-- start logo -->
-            <div id="logo">
-                <a href=""><img src="images/shared/logo.png" width="206" height="60" alt="" /> 
-                    Sistema de Monitoramento Fiscal do Simples Nacional - Modulo Municipal
-                </a>
-            </div>
-            <!-- end logo -->
-
-
-            <div class="clear"></div>
-
-        </div>
-        <!-- End: page-top -->
-
-    </div>
-    <!-- End: page-top-outer -->
-
-    <div class="clear">&nbsp;</div>
-
-    <!--  start nav-outer-repeat................................................................................................. START -->
-    <div class="nav-outer-repeat"> 
-        <!--  start nav-outer -->
-        <div class="nav-outer"> 
-
-            <!-- start nav-right -->
-            <div id="nav-right">
-
-                <div class="nav-divider">&nbsp;</div>
-                <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
-                <div class="nav-divider">&nbsp;</div>
-                <a href="" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
-                <div class="clear">&nbsp;</div>
-
-                <!--  start account-content -->	
-                <div class="account-content">
-                    <div class="account-drop-inner">
-                        <a href="" id="acc-settings">Configuracoes</a>
-                        <div class="clear">&nbsp;</div>
-                        <div class="acc-line">&nbsp;</div>
-                        <a href="" id="acc-details">Cadastro </a>
-
-                    </div>
-                </div>
-                <!--  end account-content -->
-
-            </div>
-            <!-- end nav-right -->
-
-
-            <!--  start nav -->
+<!--  start nav -->
             <%@include file="dependencias/menu.html" %>
             <!--  start nav -->
 
-        </div>
         <div class="clear"></div>
         <!--  start nav-outer -->
     </div>
@@ -81,7 +25,9 @@
             <!--  start page-heading -->
             <div id="page-heading">
                 <h1>PGDAS Consultas</h1>
-                <h3 style="width: 90%">Consulta de forma rápida aliquotas e valores declarados e retificações no PGDAS.</h3>
+                <h3 style="width: 90%">Consulta de forma rápida aliquotas e valores 
+                    declarados e retificações, assim como CNPJ's que não fizeram declaração do PGDAS. Contribuintes com 
+                impostos declarados errôneamente em revenda ou mesmo outros tipos também são apresentados nesta malha.</h3>
             </div>
             <!-- end page-heading -->
 
@@ -140,7 +86,16 @@
                                             <td></td>
                                         </tr>
                                         <input type="hidden" name="retorno" value="submit"/>
-
+                                        <tr>
+                                            <th valign="top"></th>
+                                            <td>
+                                                <input  type="checkbox" name="inconsistencia" 
+                                                        <c:if test="${not empty inco}"> 
+                                                            checked="1"
+                                                        </c:if>    
+                                                        />
+                                                        Sem declaração.
+                                            </td>
                                         <tr>
                                             <th valign="top"></th>
                                             <td><input type="submit" value="Enviar" name="botao" /></td>
@@ -200,9 +155,9 @@
                                                 <td>${pgdas.pa}</td>
                                                 <td>${pgdas.cnpj}</td>
                                                 <td>${pgdas.razao}</td>
-                                                <td>R$ <fmt:formatNumber value="${pgdas.valdecsemretencao}" minFractionDigits="2"/></td>
-                                                <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" minFractionDigits="2"/></td>
-                                                <td><fmt:formatNumber value="${pgdas.aliquota}" minFractionDigits="2"/>%</td>
+                                                <td>R$ <fmt:formatNumber value="${pgdas.valdecsemretencao}" maxFractionDigits="2" minFractionDigits="2"/></td>
+                                                <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" maxFractionDigits="2" minFractionDigits="2"/></td>
+                                                <td><fmt:formatNumber value="${pgdas.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
                                                 <td>${pgdas.operacao}</td>
 
                                             </tr>
