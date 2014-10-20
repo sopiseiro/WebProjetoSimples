@@ -54,12 +54,17 @@ public class AliquotaDAO {
                     + " AND"
                     + "     pgdas.cnpj = dadoscontribuinte.cnpj"
                     + " AND"
+                    + "     dadoscontribuinte.valorretido > 0"
+                    + " AND"
                     + "     dadoscontribuinte.aliquota < pgdas.aliquota"
                     + " AND "
-                    + "     pgdas.pa = ?";
+                    + "     pgdas.pa = ?"
+                    + " AND "
+                    + "     dadoscontribuinte.pa = ?";
             
             ps = connection.prepareStatement(SQL);
             ps.setString(1, pa);
+            ps.setString(2, pa);
             
             ResultSet rs = ps.executeQuery();
 

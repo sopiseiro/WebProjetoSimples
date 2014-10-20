@@ -152,10 +152,10 @@
                                                 <td>${aliquota.pgdas.pa}</td>
                                                 <td>${aliquota.pgdas.cnpj}</td>
                                                 <td>${aliquota.pgdas.razao}</td>
-                                                <td><fmt:formatNumber value="${aliquota.pgdas.aliquota}" maxFractionDigits="2" minFractionDigits="2"/> %</td>
-                                                <td><fmt:formatNumber value="${aliquota.dc.aliquota}" maxFractionDigits="2" minFractionDigits="2"/> %</td>
-                                                <td><fmt:formatNumber value="${aliquota.pgdas.aliquota - aliquota.dc.aliquota}" maxFractionDigits="2" minFractionDigits="2"/> %</td>
-                                                <td><fmt:formatNumber value="${aliquota.pgdas.valdeccomretencao * ((aliquota.pgdas.aliquota - aliquota.dc.aliquota)/100)}" maxFractionDigits="2" minFractionDigits="2"/></td>
+                                                <td><fmt:formatNumber value="${aliquota.pgdas.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
+                                                <td><fmt:formatNumber value="${aliquota.dc.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
+                                                <td><fmt:formatNumber value="${aliquota.pgdas.aliquota - aliquota.dc.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
+                                                <td>R$ <fmt:formatNumber value="${aliquota.pgdas.valdeccomretencao * ((aliquota.pgdas.aliquota - aliquota.dc.aliquota)/100)}" maxFractionDigits="2" minFractionDigits="2"/></td>
                                                 
 
                                             </tr>

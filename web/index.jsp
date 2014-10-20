@@ -41,13 +41,13 @@
 		<td id="tbl-border-left"></td>
 		<td>
 		<!--  start content-table-inner ...................................................................... START -->
-		<div id="content-table-inner">
+                <div id="content-table-inner" style="width: 80%;text-align: justify">
 		
 			<!--  start table-content  -->
 			<div id="table-content">
 			<h2>O que e o SIMOF?</h2>
 			<h3>Sistema de Monitoramento Fiscal do Simples Nacional - Módulo Municipal</h3>
-			
+                        <h4>
 			Com a origem do Simples Nacional, o trabalho de fiscalização 
                         municipal ficou prejudicado devido a falta de mecanismos que ajudassem o 
                         Fiscal Tributário Municipal a desenvolver suas atividades e também por 
@@ -63,8 +63,8 @@
 			Os resultados obtidos por ele foram tão satisfatórios que resolveu apresentar 
                         seu trabalho a outros municípios. Que agora podem fazer uso 
                         da ferramenta que estará em constante evolução, sempre para melhorar o trabalho dos fiscais municipais.
-			
-			
+                        </h4>	
+                        
 			</div>
 			<!--  end table-content  -->
 	
