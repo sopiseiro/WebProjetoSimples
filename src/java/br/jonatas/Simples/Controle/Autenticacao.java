@@ -44,7 +44,7 @@ public class Autenticacao extends HttpServlet {
             HttpSession autenticacao = request.getSession();
             
             Connection connection = ConnectionFactory.getConnection();
-            String SQL = "SELECT usuario FROM usuario WHERE senha = ? AND usuario = ?";
+            String SQL = "SELECT usuario,nome FROM usuario WHERE senha = ? AND usuario = ?";
             
             PreparedStatement ps = null;
             
@@ -55,6 +55,7 @@ public class Autenticacao extends HttpServlet {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()){
+                autenticacao.setAttribute("nome", rs.getString("nome"));
                 autenticacao.setAttribute("usuario", usuario);
                 //request.getRequestDispatcher("index.jsp").forward(request, response);
                 response.sendRedirect("index.jsp");

@@ -12,6 +12,15 @@
         </div>
         <!-- end logo -->
        
+        <!--  start top-search -->
+	<div id="top-search">
+		
+                    <div class="top-search-inp" style="background: none;width: 300px;margin-top: 15px;font-size: 14px;font-weight: 500">
+                        Seja Bem-Vindo, <%=request.getSession().getAttribute("nome")%>.
+                    </div>
+                
+	</div>
+ 	<!--  end top-search -->
 
 
         <div class="clear"></div>
@@ -33,12 +42,12 @@
         <div id="nav-right">
 
             <div class="nav-divider">&nbsp;</div>
-            <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
-            <div class="nav-divider">&nbsp;</div>
+           <!-- <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
+            <div class="nav-divider">&nbsp;</div>-->
             <a href="/WebProjetoSimplesNacional/logout" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
             <div class="clear">&nbsp;</div>
 
-            <!--  start account-content -->	
+            <!--  start account-content 
             <div class="account-content">
                 <div class="account-drop-inner">
                     <a href="" id="acc-settings">Configuracoes</a>
@@ -48,7 +57,7 @@
 
                 </div>
             </div>
-            <!--  end account-content -->
+             end account-content -->
 
         </div>
         <!-- end nav-right -->
