@@ -120,7 +120,7 @@ public class PGDASDAO {
             if (!pa.equals("") && cnpj.equals("") && only == null) {
                 SQL = "SELECT "
                         + "     pgdas.*, "
-                        + "     daf.valor_origem "
+                        + "     daf.valor_original "
                         + " FROM pgdas, daf "
                         + " WHERE "
                         + "     pa = ? AND "
@@ -181,7 +181,7 @@ public class PGDASDAO {
                     pgd.setValorpa(rs.getFloat("valorpa"));
                     pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
                     pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
-                    pgd.setValorrecoiss(rs.getFloat("valor_origem"));
+                    pgd.setValorrecoiss(rs.getFloat("valor_original"));
                     pgd.setAliquota(rs.getFloat("aliquota"));
                     pgd.setOperacao(rs.getString("operacao").equals("A") ? "Apuração" : "Retificação");
                     pgd.setData(rs.getString("data"));
