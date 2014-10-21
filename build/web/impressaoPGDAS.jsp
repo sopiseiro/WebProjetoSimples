@@ -141,6 +141,7 @@
                                             <th class="table-header-repeat line-left"><a href="">Retido</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Aliquota</a></th>
                                             <th class="table-header-repeat line-left"><a href="">Operação</a></th>
+                                            <th class="table-header-repeat line-left"><a href="">DAF607</a></th>
                                         </tr>
                                         <c:forEach  items="${listaPgdas}" var="pgdas" varStatus="loop">
                                             <c:choose>
@@ -159,6 +160,7 @@
                                                 <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" maxFractionDigits="2" minFractionDigits="2"/></td>
                                                 <td><fmt:formatNumber value="${pgdas.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
                                                 <td>${pgdas.operacao}</td>
+                                                <td>${pgdas.valorrecoiss}</td>
 
                                             </tr>
                                             <c:if test="${loop.last}">

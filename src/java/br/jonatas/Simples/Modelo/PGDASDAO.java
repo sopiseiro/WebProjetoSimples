@@ -118,7 +118,14 @@ public class PGDASDAO {
             }
 
             if (!pa.equals("") && cnpj.equals("") && only == null) {
-                SQL = "SELECT * FROM pgdas WHERE pa = ? ORDER BY RAZAO, CNPJ ASC    ";
+                SQL = "SELECT "
+                        + "     pgdas.*, "
+                        + "     daf.valor_origem "
+                        + " FROM pgdas, daf "
+                        + " WHERE "
+                        + "     pa = ? AND "
+                        + "     pgdas.cnpj = daf.cnpj "
+                        + "ORDER BY pgdas.RAZAO, pgdas.CNPJ ASC    ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 //ps.setString(2, cnpj);
@@ -174,7 +181,7 @@ public class PGDASDAO {
                     pgd.setValorpa(rs.getFloat("valorpa"));
                     pgd.setValdecsemretencao(rs.getFloat("valdecsemretencao"));
                     pgd.setValdeccomretencao(rs.getFloat("valdeccomretencao"));
-                    pgd.setValorrecoiss(rs.getFloat("valorrecoiss"));
+                    pgd.setValorrecoiss(rs.getFloat("valor_origem"));
                     pgd.setAliquota(rs.getFloat("aliquota"));
                     pgd.setOperacao(rs.getString("operacao").equals("A") ? "Apuração" : "Retificação");
                     pgd.setData(rs.getString("data"));
