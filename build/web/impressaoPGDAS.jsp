@@ -160,7 +160,7 @@
                                                 <td>R$ <fmt:formatNumber value="${pgdas.valdeccomretencao}" maxFractionDigits="2" minFractionDigits="2"/></td>
                                                 <td><fmt:formatNumber value="${pgdas.aliquota}" maxFractionDigits="2" minFractionDigits="2"/>%</td>
                                                 <td>${pgdas.operacao}</td>
-                                                <td>${pgdas.valorrecoiss}</td>
+                                                <td>R$ <fmt:formatNumber value="${pgdas.valorrecoiss}" maxFractionDigits="2" minFractionDigits="2"/></td>
 
                                             </tr>
                                             <c:if test="${loop.last}">

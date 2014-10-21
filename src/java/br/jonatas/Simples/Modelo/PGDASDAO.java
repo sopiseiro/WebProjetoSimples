@@ -118,14 +118,14 @@ public class PGDASDAO {
             }
 
             if (!pa.equals("") && cnpj.equals("") && only == null) {
-                SQL = "SELECT "
-                        + "     pgdas.*, "
-                        + "     daf.valor_original "
-                        + " FROM pgdas, daf "
+                SQL = "SELECT DISTINCT "
+                        + "    * "
+                        + " FROM pgdas "
+                        + " LEFT JOIN daf "
+                        + " ON daf.cnpj = pgdas.cnpj AND daf.competencia = pgdas.pa"
                         + " WHERE "
-                        + "     pa = ? AND "
-                        + "     pgdas.cnpj = daf.cnpj "
-                        + "ORDER BY pgdas.RAZAO, pgdas.CNPJ ASC    ";
+                        + "     pa = ? "
+                        + " ORDER BY pgdas.RAZAO ASC    ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 //ps.setString(2, cnpj);
