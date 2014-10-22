@@ -91,7 +91,7 @@ public class UploadDAF extends HttpServlet {
                         
                         System.out.println(arqdafdao.localizar(arqdafbean));
                         if (arqdafdao.localizar(arqdafbean)){
-                            request.setAttribute("retorno", "error");
+                            request.setAttribute("retorno", "2");
                             request.setAttribute("msg", "Este arquivo já foi importado!");
                             request.getRequestDispatcher("importacaodaf.jsp").forward(request, response);
                             return;
@@ -104,10 +104,10 @@ public class UploadDAF extends HttpServlet {
                         
                         String auto = arqdafdao.autoIncrement();                     
                         
-                        
                         tratamentoDatas d = new tratamentoDatas();
                         
                         String data_pagamento = "";
+                        
                         
                         for (int i=1;i<v.size()-1;i++){
                             dafBean daf = new dafBean();
@@ -133,12 +133,15 @@ public class UploadDAF extends HttpServlet {
                         arqdafbean.setData_pagamento(d.formataData(data_pagamento));
                         arqdafdao.inserir(arqdafbean);
                         
-                        request.setAttribute("retorno", "error");
+                        request.setAttribute("retorno", "1");
                         request.setAttribute("msg", "Sucesso!");
                         request.getRequestDispatcher("importacaodaf.jsp").forward(request, response);
                         
                     } catch (Exception ex) {
                         Logger.getLogger(UploadDAF.class.getName()).log(Level.SEVERE, null, ex);
+                        request.setAttribute("retorno", "2");
+                        request.setAttribute("msg", "Erro ao importar o arquivo");
+                        request.getRequestDispatcher("importacaodaf.jsp").forward(request, response);
                     }
                 }
                 

@@ -12,7 +12,7 @@
      user="limmt_3"  password="**896323"/>
 
 <sql:query dataSource="${snapshot}" var="result">
-SELECT * from arqdaf limit 10 offset 10;
+SELECT * from arqdaf  order by id DESC limit 10 offset 10;
 </sql:query>
 
 <jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PGDASBean"/>
@@ -103,7 +103,7 @@ SELECT * from arqdaf limit 10 offset 10;
 
                                                                                                                  
                                     <c:if test="${not empty msg}">
-                                        <c:if test="${not empty retorno}">
+                                        <c:if test="${retorno  == 2}">
                                             <!--  start message-red -->
                                             <div id="message-red">
                                                 <table border="0" width="100%" cellpadding="0" cellspacing="0">
@@ -113,6 +113,20 @@ SELECT * from arqdaf limit 10 offset 10;
                                                     </tr>
                                                 </table>
                                             </div>
+                                            <!--  end message-red -->
+                                        </c:if>
+                                        <c:if test="${retorno  == 1}">
+                                            <!--  start message-red -->
+                                            <!--  start message-green -->
+                                        <div id="message-green">
+                                            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td class="green-left">${msg}.</a></td>
+                                                    <td class="green-right"><a class="close-green"><img src="images/table/icon_close_green.gif"   alt="" /></a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--  end message-green -->
                                             <!--  end message-red -->
                                         </c:if>
                                     </c:if>

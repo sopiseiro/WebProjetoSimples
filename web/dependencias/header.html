@@ -65,6 +65,21 @@
                     $('#fiscalizacao_selecionado').addClass('show');
                     $('#aliquota').addClass('sub_show');
                 }
+                
+                if (pathname[pathname.length - 1] == "fiscalizacaopagamentos.jsp" || pathname[pathname.length - 1] == "AliquotaControle") {
+                    $('#fiscalizacao').addClass('current');
+                    $('#fiscalizacao_selecionado').addClass('show');
+                    $('#pagamentos').addClass('sub_show');
+                }
+                
+                if (pathname[pathname.length - 1] == "importacaodaf.jsp" || pathname[pathname.length - 1] == "upload-daf") {
+                    $('#importacoes').addClass('current');
+                    $('#importacoes_selecionado').addClass('show');
+                    $('#daf607').addClass('sub_show');
+                }
+                
+                
+
 
                 $('#pa').mask("99/9999");
                 $('#cnpj').mask("99.999.999/9999-99");

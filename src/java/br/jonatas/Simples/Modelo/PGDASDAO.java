@@ -122,24 +122,39 @@ public class PGDASDAO {
                         + "    * "
                         + " FROM pgdas "
                         + " LEFT JOIN daf "
-                        + " ON daf.cnpj = pgdas.cnpj AND daf.competencia = pgdas.pa"
+                        + " ON daf.cnpj = pgdas.cnpj AND daf.competencia = ?"
                         + " WHERE "
-                        + "     pa = ? "
+                        + "     pgdas.pa = ?"
                         + " ORDER BY pgdas.RAZAO ASC    ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
+                ps.setString(2, pa);
                 //ps.setString(2, cnpj);
             }
 
             if (pa.equals("") && !cnpj.equals("") && only == null) {
-                SQL = "SELECT * FROM pgdas WHERE cnpj = ? ORDER BY CNPJ ASC";
+                SQL = "SELECT DISTINCT "
+                        + " * "
+                        + " FROM pgdas "
+                        + " LEFT JOIN daf "
+                        + " ON daf.competencia = pgdas.pa AND daf.cnpj = ?"
+                        + " WHERE "
+                        + "   pgdas.cnpj = ? "
+                        + " ORDER BY pgdas.CNPJ ASC ";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, cnpj);
+                ps.setString(2, cnpj);
                 //ps.setString(2, cnpj);
             }
 
             if (!pa.equals("") && !cnpj.equals("") && only == null) {
-                SQL = "SELECT * FROM pgdas WHERE pa = ? AND cnpj = ? ORDER BY RAZAO, CNPJ ASC";
+                SQL = "SELECT DISTINCT * "
+                        + "FROM pgdas "
+                        + " LEFT JOIN daf "
+                        + " ON daf.competencia = pgdas.pa AND pgdas.cnpj = daf.cnpj "
+                        + "WHERE "
+                        + "pgdas.pa = ? AND pgdas.cnpj = ? "
+                        + "ORDER BY pgdas.razao, pgdas.cnpj ASC";
                 ps = connection.prepareStatement(SQL);
                 ps.setString(1, pa);
                 ps.setString(2, cnpj);
