@@ -186,7 +186,7 @@
                                     <td>
                                         <a href="" class="page-far-left"></a>
                                         <a href="" class="page-left"></a>
-                                        <div id="page-info">Página <strong>1</strong> / 15</div>
+                                        <div id="page-info">Página <strong>1</strong> / 1</div>
                                         <a href="" class="page-right"></a>
                                         <a href="" class="page-far-right"></a>
                                     </td>

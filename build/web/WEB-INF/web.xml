@@ -40,6 +40,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>br.jonatas.Simples.Controle.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PagamentoControle</servlet-name>
+        <servlet-class>br.jonatas.Simples.Controle.PagamentoControle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relatorioPGDASCompleto</servlet-name>
         <url-pattern>/relatorioPGDASCompleto/</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PagamentoControle</servlet-name>
+        <url-pattern>/PagamentoControle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

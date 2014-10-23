@@ -60,7 +60,7 @@ public class ArquivodafDAO {
             }
             return resultado;
         } catch (SQLException ex) {
-            Logger.getLogger(dafDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DafDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "teste";
     }

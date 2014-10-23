@@ -6,9 +6,9 @@
 package br.jonatas.Simples.Controle;
 
 import br.jonatas.Simples.Bean.ArquivodafBean;
-import br.jonatas.Simples.Bean.dafBean;
+import br.jonatas.Simples.Bean.DafBean;
 import br.jonatas.Simples.Modelo.ArquivodafDAO;
-import br.jonatas.Simples.Modelo.dafDAO;
+import br.jonatas.Simples.Modelo.DafDAO;
 import br.jonatas.Simples.util.LeituraTxt;
 import br.jonatas.Simples.util.tratamentoDatas;
 import java.io.File;
@@ -110,8 +110,8 @@ public class UploadDAF extends HttpServlet {
                         
                         
                         for (int i=1;i<v.size()-1;i++){
-                            dafBean daf = new dafBean();
-                            dafDAO dafD = new dafDAO();
+                            DafBean daf = new DafBean();
+                            DafDAO dafD = new DafDAO();
 
                             daf.setData_pagamento(d.formataData(v.get(i).substring(9, 17)));
                             daf.setVencimento(d.formataData(v.get(i).substring(17, 25)));

@@ -6,7 +6,7 @@
 package br.jonatas.Simples.Modelo;
 
 import br.jonatas.Simples.Bean.PGDASBean;
-import br.jonatas.Simples.Bean.dafBean;
+import br.jonatas.Simples.Bean.DafBean;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,14 +19,14 @@ import java.util.logging.Logger;
  *
  * @author issqn
  */
-public class dafDAO {
+public class DafDAO {
     private Connection connection;
 
-    public dafDAO() {
+    public DafDAO() {
         this.connection = ConnectionFactory.getConnection();
     }
     
-    public void inserir(dafBean daf) {
+    public void inserir(DafBean daf) {
         try {
             String SQL = "INSERT INTO daf "
                     + "(cnpj, competencia, numero_guia, vencimento, data_pagamento,"
@@ -67,7 +67,7 @@ public class dafDAO {
                 return rs.getString("Auto_increment");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(dafDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DafDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

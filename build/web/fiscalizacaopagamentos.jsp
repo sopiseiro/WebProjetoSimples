@@ -5,6 +5,20 @@
 <jsp:useBean id="pgdas" class="br.jonatas.Simples.Bean.PGDASBean"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="dependencias/header.html" %>
+<script>
+    $(function () {
+        enable_txt();
+        $("#tipo").click(enable_txt);
+    });
+
+    function enable_txt() {
+        if (this.checked) {
+            $("name='periodoIni'").removeAttr("disabled");
+        } else {
+            $("name='periodoIni'").attr("disabled", true);
+        }
+    }
+</script>
 <body> 
     <!--  start nav -->
     <%@include file="dependencias/menu.html" %>
@@ -85,14 +99,20 @@
                                     </tr>
                                     <tr>
                                         <th valign="top">Regime:</th>
-                                        <td><input type="radio" id="tipo" value="MEI" name="cnpj" checked="checked"  /> SIMPLES</td>
-                                        <td><input type="radio" id="tipo" value="MEI" name="cnpj"  /> SIMEI </td>
+                                        <td><input type="radio" id="regime" value="MEI" name="regime" checked="checked"  /> SIMPLES</td>
+                                        <td><input type="radio" id="regime" value="MEI" name="regime"  /> SIMEI </td>
                                     </tr>
                                     <tr>
                                         <th valign="top">Opções:</th>
-                                        <td><input type="checkbox" id="tipo" value="1" name="cnpj"  /> Somente sem recolhimento. <br>
-
+                                        <td><input type="checkbox" id="tipo" value="" name="semreco"  /> Somente sem recolhimento. <br>
                                     </tr>
+                                    <tr>
+                                        <th valign="top">Periodo:</th>
+                                        <td><input type="text" id="pa" value="${cnpj}" name="peridoIni" class="inp-form" disabled="true" /> até <input type="text" id="pa" value="${cnpj}" name="peridoFin" class="inp-form" disabled="true" /></td>
+                                        <td></td>
+                                    </tr>
+
+
                                     <input type="hidden" name="retorno" value="submit"/>
 
                                     <th valign="top"></th>
@@ -189,7 +209,7 @@
                                     <td>
                                         <a href="" class="page-far-left"></a>
                                         <a href="" class="page-left"></a>
-                                        <div id="page-info">Página <strong>1</strong> / 15</div>
+                                        <div id="page-info">Página <strong>1</strong> / 1</div>
                                         <a href="" class="page-right"></a>
                                         <a href="" class="page-far-right"></a>
                                     </td>

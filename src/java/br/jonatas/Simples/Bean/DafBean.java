@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author issqn
  */
-public class dafBean {
+public class DafBean {
     private int id;
     private String cnpj;
     private String competencia;
@@ -32,7 +32,7 @@ public class dafBean {
     private Float valor_total;
     private String arqdaf;
 
-    public dafBean() {
+    public DafBean() {
     }
 
     public int getId() {
